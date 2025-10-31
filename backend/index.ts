@@ -10,7 +10,8 @@ app.use(json());
 
 const databaseService = new DatabaseService();
 
-await databaseService.MigrateAll();
+// Connect to MongoDB
+await databaseService.Connect();
 
 const server = app.listen(port, () => {
 	console.log(`Listening on port ${port}`);

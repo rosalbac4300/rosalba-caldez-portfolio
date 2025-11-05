@@ -2,8 +2,6 @@ import { ControllerResponse } from "../common/controller-response.js";
 
 class CollectionController {
 	public AddCollection(): ControllerResponse {
-		console.log('Here on the controller');
-
 		return {
 			statusCode: 200
 		};

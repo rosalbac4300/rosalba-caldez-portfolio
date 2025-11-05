@@ -22,5 +22,3 @@ const server = app.listen(port, () => {
 for (const {basePath, router} of routerRegistry) {
 	app.use(basePath, router);
 }
-
-console.log('It did build correctly')

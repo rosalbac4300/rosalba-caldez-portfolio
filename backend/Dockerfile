@@ -3,6 +3,6 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 COPY . .
-RUN npm run build
+RUN chmod +x build.sh
 EXPOSE 4000
-CMD ["npm", "start"]
+CMD ["./build.sh"]

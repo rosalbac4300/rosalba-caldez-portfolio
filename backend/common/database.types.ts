@@ -1,48 +1,42 @@
-import { ColumnType, Generated, Insertable, Selectable, Updateable } from 'kysely';
-
-export interface LanguageTable {
-	id: Generated<number>;
-
+export interface Language {
 	languageKey: string;
 }
 
-export interface CollectionTable {
-	id: Generated<number>;
+export enum FieldType {
+	Text = 'text',
+	Select = 'select',
+	Boolean = 'boolean',
+	Number = 'number',
+	Email = 'email',
+}
 
+export interface Field {
 	name: string;
+	type: FieldType;
+	options?: string[] | number[];
+	optional: boolean;
+}
+
+export interface Collection {
+	name: string;
+	fields: Field[];
 }
 
 // Very basic content: just managing text here, nothing fancy :p!
-export interface ContentTable {
-	id: Generated<number>;
-
+export interface Content {
 	contentKey: string;
-	content: string;
+	content: Record<string, any>;
 
-	createdAt: ColumnType<Date, Date, never>;
+	createdAt: Date;
 	updatedAt: Date;
-	deletedAt: ColumnType<Date | null, Date | null, never>; // Soft Delete
+	deletedAt: Date | null;
 
-	collectionId: number;
-	languageId: number;
+	collectionName: number;
+	languageKey: string;
 }
 
 export interface DatabaseSchema {
-	Collections: CollectionTable;
-	Content: ContentTable;
-	Languages: LanguageTable;
+	Collections: Collection;
+	Content: Content;
+	Languages: Language;
 }
-
-
-// Table Types:
-export type Language = Selectable<LanguageTable>;
-export type NewLanguage = Insertable<LanguageTable>;
-export type UpdateLanguage = Updateable<LanguageTable>;
-
-export type Content = Selectable<ContentTable>;
-export type NewContent = Insertable<ContentTable>;
-export type UpdateContent = Updateable<ContentTable>;
-
-export type Collection = Selectable<CollectionTable>;
-export type NewCollection = Insertable<CollectionTable>;
-export type UpdateCollection = Updateable<CollectionTable>;

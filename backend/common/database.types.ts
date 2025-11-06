@@ -17,13 +17,13 @@ export interface Field {
 	optional: boolean;
 }
 
-export interface Collection {
+export interface CollectionType {
 	name: string;
 	fields: Field[];
 }
 
 // Very basic content: just managing text here, nothing fancy :p!
-export interface Content {
+export interface ContentType {
 	contentKey: string;
 	content: Record<string, any>;
 
@@ -31,12 +31,12 @@ export interface Content {
 	updatedAt: Date;
 	deletedAt: Date | null;
 
-	collectionName: number;
+	collectionName: string;
 	languageKey: string;
 }
 
 export interface DatabaseSchema {
-	Collections: Collection;
-	Content: Content;
+	Collections: CollectionType;
+	Content: ContentType;
 	Languages: Language;
 }

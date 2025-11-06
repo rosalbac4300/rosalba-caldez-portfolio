@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import { backendAppConfig } from '../common/config.js';
 
 class DatabaseService {
@@ -8,8 +9,8 @@ class DatabaseService {
 
 	public async Connect(): Promise<void> {
 		try {
-			const connectionString = `${backendAppConfig.database.connectionString}/${backendAppConfig.database.databaseName}`;
-			await mongoose.connect(connectionString);
+			console.info('Connecting to MongoDB...');
+			await mongoose.connect(backendAppConfig.database.connectionString);
 			console.log(' Connected to MongoDB');
 		} catch (error) {
 			console.error('Failed to connect to MongoDB:', error);

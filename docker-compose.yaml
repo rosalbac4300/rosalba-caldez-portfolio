@@ -14,8 +14,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017
-      - MONGODB_DATABASE_NAME=portfolio_cms
+      - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017/portfolio_cms
   mongodb:
     image: mongo:latest
     container_name: mongodb

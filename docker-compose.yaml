@@ -4,8 +4,26 @@ services:
     container_name: frontend
     ports:
       - '3000:3000'
+    depends_on:
+      - backend
   backend:
     build: ./backend
     container_name: backend
     ports:
       - '4000:4000'
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017/portfolio_cms
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=portfolio_cms
+
+volumes:
+  mongodb_data:

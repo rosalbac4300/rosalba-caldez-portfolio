@@ -8,18 +8,10 @@ class CollectionController {
 
 	public async AddCollection(body: any): Promise<ControllerResponse> {
 		const { name, fields } = body;
-		let statusCode = 200;
-		let data: any = "";
-
-		try {
-			data = await this.collectionService.CreateCollection(name, fields);
-		} catch (error) {
-			statusCode = 400;
-			console.log(error);
-		}
+		const data = await this.collectionService.CreateCollection(name, fields);
 
 		return {
-			statusCode,
+			statusCode: 200,
 			data,
 		};
 	}

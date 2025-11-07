@@ -1,3 +1,4 @@
+import { BadRequest } from "../common/http-error.js";
 import Collection, { CollectionDocument } from "../models/collections.model.js";
 import { CollectionType as CollectionType, Field, FieldType } from "../common/database.types.js";
 
@@ -19,7 +20,7 @@ export default class CollectionService {
 	public async CreateCollection(name: string, fields: Field[]) {
 		if (!this.validateFields(fields)) {
 			// TODO. Make an error and a middleware to handle all of these errors!!!!!
-			throw new Error('Invalid fields.')
+			throw new BadRequest('Invalid fields');
 		}
 
 		const collection = await Collection.create({ name, fields });

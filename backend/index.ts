@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import DatabaseService from './services/database.service.js';
 import { routerRegistry } from './routers/index.js';
+import errorMiddleware from './middlewares/error.middleware.js';
 
 const port = 4000;
 
@@ -22,3 +23,5 @@ const server = app.listen(port, () => {
 for (const {basePath, router} of routerRegistry) {
 	app.use(basePath, router);
 }
+
+app.use(errorMiddleware);

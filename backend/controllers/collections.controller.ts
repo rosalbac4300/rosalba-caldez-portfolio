@@ -1,5 +1,5 @@
 import { ControllerResponse } from "../common/controller-response.js";
-import CollectionService from "../services/controller.service.js";
+import CollectionService from "../services/collection.service.js";
 
 class CollectionController {
 	constructor (

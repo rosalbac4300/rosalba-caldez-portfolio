@@ -1,7 +1,7 @@
 import { RouterRegistration } from '../common/base-router.js';
 import CollectionController from '../controllers/collections.controller.js';
 import CollectionRouter from './collections.router.js';
-import CollectionService from '../services/controller.service.js';
+import CollectionService from '../services/collection.service.js';
 
 const collectionService = new CollectionService();
 

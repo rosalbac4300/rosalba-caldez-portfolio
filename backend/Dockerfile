@@ -3,5 +3,6 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 COPY . .
+RUN chmod +x build.sh
 EXPOSE 4000
-CMD ["node", "index.ts"]
+CMD ["./build.sh"]

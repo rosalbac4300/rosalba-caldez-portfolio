@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { RequestHandler } from "express";
 
 import { BaseRouter } from "../common/base-router.js";
@@ -16,6 +16,7 @@ class CollectionRouter extends BaseRouter {
 		// Get Collections
 		this.router.get('/', ...this.getCollections())
 		this.router.post('/', ...this.createCollection())
+		this.router.delete('/:name', ...this.deleteCollections())
 	}
 
 	private createCollection(): RequestHandler[] {
@@ -41,6 +42,18 @@ class CollectionRouter extends BaseRouter {
 		return [
 			asyncHandler(async (_req: any, res: any): Promise<void> => {
 				const response = await this.controller.GetCollections();
+				res.status(response.statusCode).json(response.data);
+			})
+		]
+	}
+
+	private deleteCollections (): RequestHandler[] {
+		return [
+			validate([
+				param('name').notEmpty().isString(),
+			]),
+			asyncHandler(async (req: any, res: any): Promise<void> => {
+				const response = await this.controller.DeleteCollection(req.params);
 				res.status(response.statusCode).json(response.data);
 			})
 		]

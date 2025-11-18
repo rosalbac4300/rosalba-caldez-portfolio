@@ -17,17 +17,42 @@ export default class CollectionService {
 		return areFieldsValid;
 	}
 
+	private validateName(name: string): boolean {
+		const nameRegex = /^[a-zA-Z0-9_-]+$/;
+		return nameRegex.test(name);
+	}
+
 	public async CreateCollection(name: string, fields: Field[]) {
 		if (!this.validateFields(fields)) {
-			// TODO. Make an error and a middleware to handle all of these errors!!!!!
-			throw new BadRequest('Invalid fields');
+			throw new BadRequest('Invalid fields.');
 		}
 
-		const collection = await Collection.create({ name, fields });
+		const normalizedName = name.toLowerCase();
+
+		if (!this.validateName(normalizedName)) {
+			throw new BadRequest('Invalid name.');
+		}
+
+		const sameNameCollection = await Collection.find({ name: normalizedName }).exec();
+
+		if (sameNameCollection.length >= 1) {
+			throw new BadRequest('Name already used.');
+		}
+		
+		const collection = await Collection.create({ name: normalizedName, fields });
 		return collection;
 	}
 
+	public async DeleteCollection(name: string) {
+		// Convert name to lowercase to match how it's stored
+		const normalizedName = name.toLowerCase();
+		await Collection.findOneAndUpdate({ name: normalizedName }, { deletedAt: Date.now() });
+	}
+
+	public async UpdateCollection(name: string, fields: Field[]) {}
+
 	public async GetCollections(): Promise<CollectionDocument[]> {
-		return await Collection.find().exec();
+		// Check field deletedAt is not null!
+		return await Collection.find({ deletedAt: { $exists: false, $ne: null }}).exec();
 	}
 };

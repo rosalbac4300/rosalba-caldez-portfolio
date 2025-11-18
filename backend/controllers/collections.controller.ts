@@ -16,6 +16,15 @@ class CollectionController {
 		};
 	}
 
+	public async DeleteCollection(params: any): Promise<ControllerResponse> {
+		const { name } = params;
+		await this.collectionService.DeleteCollection(name);
+
+		return {
+			statusCode: 204,
+		};
+	}
+
 	public async GetCollections(): Promise<ControllerResponse> {
 		const collections = await this.collectionService.GetCollections();
 
@@ -29,12 +38,6 @@ class CollectionController {
 	}
 	
 	public async UpdateCollection(): Promise<ControllerResponse> {
-		return {
-			statusCode: 200
-		};
-	}
-
-	public async DeleteCollection(): Promise<ControllerResponse> {
 		return {
 			statusCode: 200
 		};

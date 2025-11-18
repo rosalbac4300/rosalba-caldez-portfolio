@@ -20,6 +20,10 @@ export interface Field {
 export interface CollectionType {
 	name: string;
 	fields: Field[];
+
+	createdAt: Date;
+	deletedAt: Date | null;
+	updatedAt: Date;
 }
 
 // Very basic content: just managing text here, nothing fancy :p!

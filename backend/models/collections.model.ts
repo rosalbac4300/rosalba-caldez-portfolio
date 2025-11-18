@@ -16,7 +16,11 @@ const CollectionSchema = new Schema<CollectionDocument>(
 			type: { type: String, required: [true, "Field type is required."]},
 			options: { type: Array },
 			optional: { type: Boolean, default: false },
-		}]
+		}],
+
+		deletedAt: Date,
+	}, {
+		timestamps: true,
 	}
 );
 
